@@ -85,4 +85,6 @@ async def main_page():
 
     ui.button('Submit', on_click=submit).props('color=primary')
 
-ui.run(title='Orchestrator UI', dark=True)  # Optional: dark mode for nicer look
+import os
+port = int(os.environ.get('PORT', 8080))
+ui.run(title='Orchestrator UI', dark=True, port=port, host='0.0.0.0')
