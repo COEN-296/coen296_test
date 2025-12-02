@@ -31,26 +31,6 @@ UPLOADS_DIR = os.path.join(STATIC_DIR, 'uploads')
 os.makedirs(LOG_DIR, exist_ok=True)
 os.makedirs(UPLOADS_DIR, exist_ok=True)
 
-# Mount static files (UI)
-# Mount static files (UI)
-if os.path.exists(STATIC_DIR):
-    # Disable caching for development
-    app.mount("/static", StaticFiles(directory=STATIC_DIR, html=True), name="static")
-    
-    @app.middleware("http")
-    async def add_no_cache_header(request, call_next):
-        response = await call_next(request)
-        if request.url.path.startswith("/static"):
-            response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-            response.headers["Pragma"] = "no-cache"
-            response.headers["Expires"] = "0"
-        return response
-
-# Redirect root to login page
-@app.get('/')
-async def root():
-    return RedirectResponse(url='/static/login.html')
-
 # Simple components
 retriever = Retriever()
 agent = Agent(retriever=retriever)
