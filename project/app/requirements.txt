@@ -2,6 +2,9 @@ fastapi
 uvicorn[standard]
 pydantic
 mcp
+fitz
+nicegui
+fastmcp
 google-generativeai
 python-dotenv
 google-api-python-client
@@ -11,6 +14,4 @@ chromadb
 pypdf2
 pypdf
 sentence-transformers
-fitz
-nicegui
-fastmcp
+frontend
