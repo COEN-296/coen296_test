@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 import google.generativeai as genai
 from fastmcp import Client  # Correct import per library docs
+from logging_utils import get_logger  # Import logging utilities
 
 # Import Gmail tools (local if needed, but route via MCP)
 from gmail_agent import list_emails as gmail_list_emails
@@ -25,47 +26,79 @@ if API_KEY:
     genai.configure(api_key=API_KEY)
 
 async def route_to_mcp(request: str) -> str:
+    logger = get_logger()
+    logger.log_routing("MCP Server", "agent_action")
+    
     try:
         async with Client("http://localhost:8000/sse") as client:
             result = await client.call_tool('agent_action', {'request': request})
             # Improved extraction to avoid repeats
             if hasattr(result, 'content') and isinstance(result.content, list) and len(result.content) > 0 and hasattr(result.content[0], 'text'):
-                return result.content[0].text.replace('\\n', '\n')
+                response = result.content[0].text.replace('\\n', '\n')
             elif hasattr(result, 'structured_content') and 'result' in result.structured_content:
-                return result.structured_content['result'].replace('\\n', '\n')
+                response = result.structured_content['result'].replace('\\n', '\n')
             elif hasattr(result, 'text'):
-                return result.text.replace('\\n', '\n')
+                response = result.text.replace('\\n', '\n')
             elif isinstance(result, str) and 'text=' in result:
                 # Parse from string like "type='text' text='content'"
                 start = result.find("text='") + 6
                 end = result.find("'", start)
                 text = result[start:end]
-                return text.replace('\\n', '\n')
+                response = text.replace('\\n', '\n')
             else:
-                return str(result).replace('\\n', '\n')
+                response = str(result).replace('\\n', '\n')
+            
+            logger.log_model_response(
+                model_name="MCP agent_action",
+                prompt=request,
+                response=response
+            )
+            return response
     except Exception as e:
-        return f"MCP Error: {str(e)}"
+        error_msg = f"MCP Error: {str(e)}"
+        logger.log_error(
+            error_type="mcp_error",
+            error_message=str(e),
+            context="route_to_mcp"
+        )
+        return error_msg
 
 async def route_to_mcp_general(prompt: str) -> str:
+    logger = get_logger()
+    logger.log_routing("MCP Server", "ask_gemini")
+    
     try:
         async with Client("http://localhost:8000/sse") as client:
             result = await client.call_tool('ask_gemini', {'prompt': prompt})
             # Improved extraction to avoid repeats
             if hasattr(result, 'content') and isinstance(result.content, list) and len(result.content) > 0 and hasattr(result.content[0], 'text'):
-                return result.content[0].text.replace('\\n', '\n')
+                response = result.content[0].text.replace('\\n', '\n')
             elif hasattr(result, 'structured_content') and 'result' in result.structured_content:
-                return result.structured_content['result'].replace('\\n', '\n')
+                response = result.structured_content['result'].replace('\\n', '\n')
             elif hasattr(result, 'text'):
-                return result.text.replace('\\n', '\n')
+                response = result.text.replace('\\n', '\n')
             elif isinstance(result, str) and 'text=' in result:
                 start = result.find("text='") + 6
                 end = result.find("'", start)
                 text = result[start:end]
-                return text.replace('\\n', '\n')
+                response = text.replace('\\n', '\n')
             else:
-                return str(result).replace('\\n', '\n')
+                response = str(result).replace('\\n', '\n')
+            
+            logger.log_model_response(
+                model_name="MCP ask_gemini",
+                prompt=prompt,
+                response=response
+            )
+            return response
     except Exception as e:
-        return f"MCP General Error: {str(e)}"
+        error_msg = f"MCP General Error: {str(e)}"
+        logger.log_error(
+            error_type="mcp_general_error",
+            error_message=str(e),
+            context="route_to_mcp_general"
+        )
+        return error_msg
 
 # Make handle_request async
 async def handle_request(user_input: str, file_paths: list[str] = None) -> str:
@@ -79,6 +112,9 @@ async def handle_request(user_input: str, file_paths: list[str] = None) -> str:
     """
     if not API_KEY:
         return "Error: GEMINI_API_KEY not set."
+
+    # Get logger for this session
+    logger = get_logger()
 
     # Combine input if files provided
     full_request = user_input
@@ -102,6 +138,9 @@ async def handle_request(user_input: str, file_paths: list[str] = None) -> str:
     else:
         category_text = category_response.text
     category = category_text.strip().lower()
+    
+    # Log classification result
+    logger.log_classification(category, full_request)
 
     if category == 'expense':
         return await route_to_mcp(full_request)

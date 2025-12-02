@@ -3,9 +3,14 @@ from orchestration_agent import handle_request  # Import from your orchestrator 
 import os
 import fitz  # PyMuPDF for PDF text extraction (kept but not used in UI; can be removed if not needed here)
 import io  # For handling file streams (kept for potential future use, but not needed here)
+from logging_utils import new_session, get_logger  # Import logging utilities
 
 # Ensure uploads directory exists
 os.makedirs('uploads', exist_ok=True)
+
+# Ensure logs directory exists
+LOG_DIR = os.path.join(os.path.dirname(__file__), 'logs')
+os.makedirs(LOG_DIR, exist_ok=True)
 
 # Global list to store uploaded file paths (strings)
 uploaded_files = []
@@ -36,6 +41,15 @@ async def main_page():
             ui.notify('Please enter instructions.', color='negative')
             return
 
+        # Start new logging session for this request
+        logger = new_session(LOG_DIR)
+        
+        # Log user input
+        logger.log_user_input(
+            input_text=instructions.value,
+            uploaded_files=uploaded_files.copy()
+        )
+
         with ui.dialog().props('persistent') as dialog:
             with ui.card():
                 ui.spinner(size='lg')
@@ -47,6 +61,10 @@ async def main_page():
             if isinstance(result, list):
                 result = '\n'.join(str(item) for item in result)  # Join list items with newlines
 
+            # Log the output
+            logger.log_output(result)
+            logger.log_session_end()
+
             # Clear for next use
             uploaded_files.clear()
 
@@ -54,7 +72,14 @@ async def main_page():
             ui.label('Output:').classes('text-h6')
             ui.markdown(result)
         except Exception as e:
-            ui.notify(f'Error: {str(e)}', color='negative')
+            error_msg = f'Error: {str(e)}'
+            logger.log_error(
+                error_type="ui_error",
+                error_message=str(e),
+                context="UI submit function"
+            )
+            logger.log_session_end()
+            ui.notify(error_msg, color='negative')
         finally:
             dialog.close()
 

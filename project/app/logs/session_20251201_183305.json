@@ -1,0 +1,37 @@
+[
+  {
+    "timestamp": "2025-12-01 18:33:05.661",
+    "type": "user_input",
+    "input_text": "list my all of my google drive files with the word \"demo\" in them\n",
+    "uploaded_files": []
+  },
+  {
+    "timestamp": "2025-12-01 18:33:06.690",
+    "type": "classification",
+    "category": "drive",
+    "request": "list my all of my google drive files with the word \"demo\" in them\n"
+  },
+  {
+    "timestamp": "2025-12-01 18:33:06.694",
+    "type": "routing",
+    "destination": "MCP Server",
+    "method": "agent_action"
+  },
+  {
+    "timestamp": "2025-12-01 18:33:11.828",
+    "type": "model_response",
+    "model_name": "MCP agent_action",
+    "prompt": "list my all of my google drive files with the word \"demo\" in them\n",
+    "response": "I found 6 files with \"demo\" in their name.\n",
+    "thinking_trace": null
+  },
+  {
+    "timestamp": "2025-12-01 18:33:11.834",
+    "type": "final_output",
+    "output": "I found 6 files with \"demo\" in their name.\n"
+  },
+  {
+    "timestamp": "2025-12-01 18:33:11.863",
+    "type": "session_end"
+  }
+]

@@ -1,0 +1,9 @@
+================================================================================
+SESSION LOG - 20251201_182650
+================================================================================
+
+
+[2025-12-01 18:26:51.138] ERROR
+Type: agent_action_exception
+Message: 403 Your API key was reported as leaked. Please use another API key.
+Context: agent_action

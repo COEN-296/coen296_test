@@ -1,0 +1,55 @@
+[
+  {
+    "timestamp": "2025-12-01 18:17:10.878",
+    "type": "user_input",
+    "input_text": "Test query: What is the weather today?",
+    "uploaded_files": [
+      "test_file.pdf"
+    ]
+  },
+  {
+    "timestamp": "2025-12-01 18:17:10.879",
+    "type": "classification",
+    "category": "general",
+    "request": "Test query: What is the weather today?"
+  },
+  {
+    "timestamp": "2025-12-01 18:17:10.896",
+    "type": "routing",
+    "destination": "MCP Server",
+    "method": "ask_gemini"
+  },
+  {
+    "timestamp": "2025-12-01 18:17:10.913",
+    "type": "model_response",
+    "model_name": "gemini-2.5-flash",
+    "prompt": "What is the weather today?",
+    "response": "I don't have access to real-time weather information.",
+    "thinking_trace": null
+  },
+  {
+    "timestamp": "2025-12-01 18:17:10.934",
+    "type": "tool_call",
+    "tool_name": "list_emails",
+    "parameters": {
+      "max_results": 10
+    },
+    "result": "Found 5 emails"
+  },
+  {
+    "timestamp": "2025-12-01 18:17:10.954",
+    "type": "final_output",
+    "output": "I don't have access to real-time weather information. You can check weather.com for current conditions."
+  },
+  {
+    "timestamp": "2025-12-01 18:17:10.975",
+    "type": "error",
+    "error_type": "test_error",
+    "error_message": "This is a test error",
+    "context": "test_logging function"
+  },
+  {
+    "timestamp": "2025-12-01 18:17:10.998",
+    "type": "session_end"
+  }
+]

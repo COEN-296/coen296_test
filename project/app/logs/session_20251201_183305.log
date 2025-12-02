@@ -1,0 +1,38 @@
+================================================================================
+SESSION LOG - 20251201_183305
+================================================================================
+
+
+--------------------------------------------------------------------------------
+[2025-12-01 18:33:05.661] USER INPUT
+--------------------------------------------------------------------------------
+Input: list my all of my google drive files with the word "demo" in them
+
+
+[2025-12-01 18:33:06.690] CLASSIFICATION
+Category: drive
+Request: list my all of my google drive files with the word "demo" in them
+
+
+[2025-12-01 18:33:06.694] ROUTING
+Destination: MCP Server
+Method: agent_action
+
+[2025-12-01 18:33:11.828] MODEL RESPONSE
+Model: MCP agent_action
+Prompt: list my all of my google drive files with the word "demo" in them
+
+
+Response:
+I found 6 files with "demo" in their name.
+
+
+--------------------------------------------------------------------------------
+[2025-12-01 18:33:11.834] FINAL OUTPUT
+--------------------------------------------------------------------------------
+I found 6 files with "demo" in their name.
+
+
+================================================================================
+[2025-12-01 18:33:11.863] SESSION END
+================================================================================

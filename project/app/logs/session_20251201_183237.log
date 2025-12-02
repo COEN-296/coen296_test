@@ -1,0 +1,59 @@
+================================================================================
+SESSION LOG - 20251201_183237
+================================================================================
+
+
+--------------------------------------------------------------------------------
+[2025-12-01 18:32:37.128] USER INPUT
+--------------------------------------------------------------------------------
+Input: list me my most recent emails
+
+[2025-12-01 18:32:37.777] CLASSIFICATION
+Category: gmail
+Request: list me my most recent emails
+
+[2025-12-01 18:32:37.781] ROUTING
+Destination: MCP Server
+Method: agent_action
+
+[2025-12-01 18:32:45.070] MODEL RESPONSE
+Model: MCP agent_action
+Prompt: list me my most recent emails
+
+Response:
+Here are your 10 most recent emails:
+
+ID: 24 | From: coen296.blue.team.2@gmail.com | Subject: please
+ID: 23 | From: coen296.blue.team.2@gmail.com | Subject: movie quotes
+ID: 22 | From: coen296.blue.team.2@gmail.com | Subject: test0001
+ID: 21 | From: coen296.blue.team.2@gmail.com | Subject: NEW EMAIL
+ID: 20 | From: coen296.blue.team.2@gmail.com | Subject: Cats
+ID: 19 | From: coen296.blue.team.2@gmail.com | Subject: (no subject)
+ID: 18 | From: coen296.blue.team.2@gmail.com | Subject: Attachment: ENGR373 Lecture #9
+ID: 17 | From: Firebase <firebase-no-reply@google.com> | Subject: Welcome to Firebase
+ID: 16 | From: coen296.blue.team.2@gmail.com | Subject: Direct Test from Gmail Agent
+ID: 15 | From: coen296.blue.team.2@gmail.com | Subject: Direct Test from Gmail Agent
+
+--------------------------------------------------------------------------------
+[2025-12-01 18:32:45.076] FINAL OUTPUT
+--------------------------------------------------------------------------------
+Here are your 10 most recent emails:
+
+ID: 24 | From: coen296.blue.team.2@gmail.com | Subject: please
+ID: 23 | From: coen296.blue.team.2@gmail.com | Subject: movie quotes
+ID: 22 | From: coen296.blue.team.2@gmail.com | Subject: test0001
+ID: 21 | From: coen296.blue.team.2@gmail.com | Subject: NEW EMAIL
+ID: 20 | From: coen296.blue.team.2@gmail.com | Subject: Cats
+ID: 19 | From: coen296.blue.team.2@gmail.com | Subject: (no subject)
+ID: 18 | From: coen296.blue.team.2@gmail.com | Subject: Attachment: ENGR373 Lecture #9
+ID: 17 | From: Firebase <firebase-no-reply@google.com> | Subject: Welcome to Firebase
+ID: 16 | From: coen296.blue.team.2@gmail.com | Subject: Direct Test from Gmail Agent
+ID: 15 | From: coen296.blue.team.2@gmail.com | Subject: Direct Test from Gmail Agent
+
+================================================================================
+[2025-12-01 18:32:45.105] SESSION END
+================================================================================
+
+================================================================================
+[2025-12-01 18:33:05.654] SESSION END
+================================================================================
