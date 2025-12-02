@@ -1,0 +1,46 @@
+================================================================================
+SESSION LOG - 20251201_190714
+================================================================================
+
+
+--------------------------------------------------------------------------------
+[2025-12-01 19:07:14.367] USER INPUT
+--------------------------------------------------------------------------------
+Input: Test query: What is the weather today?
+Files: test_file.pdf
+
+[2025-12-01 19:07:14.368] CLASSIFICATION
+Category: general
+Request: Test query: What is the weather today?
+
+[2025-12-01 19:07:14.392] ROUTING
+Destination: MCP Server
+Method: ask_gemini
+
+[2025-12-01 19:07:14.411] MODEL RESPONSE
+Model: gemini-2.5-flash
+Prompt: What is the weather today?
+
+Response:
+I don't have access to real-time weather information.
+
+[2025-12-01 19:07:14.432] TOOL CALL
+Tool: list_emails
+Parameters: {
+  "max_results": 10
+}
+Result: Found 5 emails
+
+--------------------------------------------------------------------------------
+[2025-12-01 19:07:14.453] FINAL OUTPUT
+--------------------------------------------------------------------------------
+I don't have access to real-time weather information. You can check weather.com for current conditions.
+
+[2025-12-01 19:07:14.472] ERROR
+Type: test_error
+Message: This is a test error
+Context: test_logging function
+
+================================================================================
+[2025-12-01 19:07:14.493] SESSION END
+================================================================================
