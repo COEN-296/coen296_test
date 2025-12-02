@@ -47,12 +47,12 @@ Thumbs.db
 # *.log
 
 # Gmail credentials
-# credentials.json
-# token.json
+credentials.json
+token.json
 
 # MCP
 mock_drive/
 
 #drive credentials
-# drive_credentials.json
-# drive_token.json
+drive_credentials.json
+drive_token.json
