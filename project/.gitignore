@@ -56,3 +56,6 @@ mock_drive/
 #drive credentials
 drive_credentials.json
 drive_token.json
+
+project\app\drive_credentials.json
+project\app\drive_token.json
